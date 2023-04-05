@@ -7,7 +7,7 @@ import {
   headTextAnimation,
   slideAnimation,
 } from "../config/motion";
-import CustomButton from "../components/CustomButton";
+import { CustomButton } from "../components";
 
 const Home = () => {
   const snap = useSnapshot(state);
