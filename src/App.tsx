@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Home from "./pages/Home";
+import AIPicker from "./components/AIPicker";
 // import Canvas from "./canvas";
-// import Customizer from "./pages/Customizer";
+import Customizer from "./pages/Customizer";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -10,7 +11,7 @@ function App() {
     <main className="app transition-all ease-in">
       <Home />
       {/* <Canvas /> */}
-      {/* <Customizer /> */}
+      <Customizer />
     </main>
   );
 }

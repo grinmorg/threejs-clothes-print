@@ -12,12 +12,18 @@ export const downloadCanvasToImage = () => {
   }
 };
 
-export const reader = (file: Blob) =>
-  new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.onload = () => resolve(fileReader.result);
-    fileReader.readAsDataURL(file);
-  });
+export const reader = (
+  file: File | null
+): Promise<string | ArrayBuffer | null> | undefined => {
+  if (file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.onload = () => resolve(fileReader.result);
+      fileReader.onerror = () => reject(fileReader.error);
+      fileReader.readAsDataURL(file);
+    });
+  }
+};
 
 export const getContrastingColor = (color: string) => {
   // Remove the '#' character if it exists

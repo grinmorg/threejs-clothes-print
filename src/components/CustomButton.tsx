@@ -7,8 +7,8 @@ import { getContrastingColor } from "../config/helpers";
 interface Props {
   type: string;
   title: string;
-  customStyles: string;
-  handleClick: React.MouseEventHandler<HTMLButtonElement>;
+  customStyles?: string;
+  handleClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const CustomButton = (props: Props) => {
