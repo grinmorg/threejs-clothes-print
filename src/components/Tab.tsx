@@ -15,11 +15,11 @@ interface TabProps {
 const Tab: FC<TabProps> = ({ tab, isFilterTab, isActiveTab, handleClick }) => {
   const snap = useSnapshot(state);
 
-  const activeStyles =
+  const activeStyles: React.CSSProperties =
     isFilterTab && isActiveTab
-      ? { backgroundColor: snap.color, opacity: 0.5 }
+      ? { backgroundColor: snap.color as string, opacity: 0.5 }
       : { backgroundColor: "transparent", opacity: 1 };
-
+      
   return (
     <div
       key={tab.name}

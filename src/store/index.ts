@@ -1,12 +1,22 @@
 import { proxy } from "valtio";
+import { Color } from "react-color";
 
-const state = proxy({
-  intro: true,
+interface State {
+  intro: boolean;
+  color:  Color ;
+  isLogoTexture: boolean;
+  isFullTexture: boolean;
+  logoDecal: string;
+  fullDecal: string;
+}
+
+const state: State = proxy({
+  intro: false,
   color: "#EFBD48",
   isLogoTexture: true,
   isFullTexture: false,
   logoDecal: "./threejs.png",
-  fulDecal: "./threejs.png",
+  fullDecal: "./threejs.png",
 });
 
 export default state;

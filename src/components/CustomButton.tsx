@@ -11,20 +11,32 @@ interface Props {
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+type ButtonStyle =
+  | {
+      backgroundColor: string;
+      color: string;
+    }
+  | {
+      borderWidth: string;
+      borderColor: string;
+      color: string;
+    }
+  | undefined;
+
 const CustomButton = (props: Props) => {
   const snap = useSnapshot(state);
 
-  const generateStyle = (type: string) => {
+  const generateStyle = (type: string): ButtonStyle => {
     if (type === "filled") {
       return {
-        backgroundColor: snap.color,
-        color: getContrastingColor(snap.color),
+        backgroundColor: snap.color as string,
+        color: getContrastingColor(snap.color as string),
       };
     } else if (type === "outline") {
       return {
         borderWidth: "1px",
-        borderColor: snap.color,
-        color: snap.color,
+        borderColor: snap.color as string,
+        color: snap.color as string,
       };
     }
   };

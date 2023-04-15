@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Home from "./pages/Home";
 import AIPicker from "./components/AIPicker";
-// import Canvas from "./canvas";
+import Canvas from "./canvas";
 import Customizer from "./pages/Customizer";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   return (
     <main className="app transition-all ease-in">
       <Home />
-      {/* <Canvas /> */}
+      <Canvas />
       <Customizer />
     </main>
   );
