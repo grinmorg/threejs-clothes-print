@@ -11,7 +11,7 @@ interface State {
 }
 
 const state: State = proxy({
-  intro: false,
+  intro: true,
   color: "#EFBD48",
   isLogoTexture: true,
   isFullTexture: false,
