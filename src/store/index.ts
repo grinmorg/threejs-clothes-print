@@ -1,9 +1,13 @@
 import { proxy } from "valtio";
 import { Color } from "react-color";
 
-interface State {
+interface CameraState {
+  position: [number, number, number];
+}
+
+export interface State {
   intro: boolean;
-  color:  Color ;
+  color: Color;
   isLogoTexture: boolean;
   isFullTexture: boolean;
   logoDecal: string;
