@@ -4,9 +4,9 @@ import { useSnapshot } from "valtio";
 
 // import config from "../config/config";
 import state from "../store";
-// import { download } from "../assets";
-// import { downloadCanvasToImage, reader } from "../config/helpers";
-import { EditorTabs, FilterTabs } from "../config/constants";
+import { download } from "../assets";
+import { downloadCanvasToImage, reader } from "../config/helpers";
+import { DecalTypes, EditorTabs, FilterTabs } from "../config/constants";
 import { fadeAnimation, slideAnimation } from "../config/motion";
 import {
   AIPicker,
@@ -38,7 +38,7 @@ const Customizer = () => {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
-        return <FilePicker file={file} setFile={setFile} readFile={ () => {} } />;
+        return <FilePicker file={file} setFile={setFile} readFile={() => {}} />;
       case "aipicker":
         return (
           <AIPicker
@@ -80,15 +80,18 @@ const Customizer = () => {
     }
   };
 
-  // const handleDecals = (type, result) => {
-  //   const decalType = DecalTypes[type];
+  const handleDecals = (
+    type: "logo" | "full",
+    result: string | ArrayBuffer | null
+  ) => {
+    const decalType = DecalTypes[type];
 
-  //   state[decalType.stateProperty] = result;
+    state[decalType.stateProperty] = result;
 
-  //   if (!activeFilterTab[decalType.filterTab]) {
-  //     handleActiveFilterTab(decalType.filterTab);
-  //   }
-  // };
+    if (!activeFilterTab[decalType.filterTab]) {
+      handleActiveFilterTab(decalType.filterTab);
+    }
+  };
 
   const handleActiveFilterTab = (tabName: string) => {
     switch (tabName) {
@@ -106,23 +109,29 @@ const Customizer = () => {
 
     // after setting the state, activeFilterTab is updated
 
-    // setActiveFilterTab((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     [tabName]: !prevState[tabName],
-    //   };
-    // });
+    setActiveFilterTab((prevState) => {
+      return {
+        ...prevState,
+        [tabName]: !prevState[tabName],
+      };
+    });
   };
 
-  // const readFile = (type: string) => {
-  //   if (file) {
-  //     reader(file).then((result) => {
-  //       handleDecals(type, result);
-  //       setActiveEditorTab("");
-  //     });
-  //   }
-  // };
-
+  const readFile = (type: "logo" | "full") => {
+    if (file) {
+      const result = reader(file);
+      if (result) {
+        result.then((data) => {
+          handleDecals(type, data);
+          setActiveEditorTab("");
+        });
+      } else {
+        console.log("Error reading file");
+      }
+    } else {
+      console.log("File is undefined");
+    }
+  };
   return (
     <AnimatePresence>
       {!snap.intro && (

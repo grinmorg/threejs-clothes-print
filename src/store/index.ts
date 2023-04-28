@@ -6,6 +6,7 @@ interface CameraState {
 }
 
 export interface State {
+  [key: string]: any;
   intro: boolean;
   color: Color;
   isLogoTexture: boolean;
