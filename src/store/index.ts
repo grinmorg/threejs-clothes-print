@@ -1,10 +1,6 @@
 import { proxy } from "valtio";
 import { Color } from "react-color";
 
-interface CameraState {
-  position: [number, number, number];
-}
-
 export interface State {
   [key: string]: any;
   intro: boolean;

@@ -1,5 +1,6 @@
-import React, { FC, ChangeEvent } from 'react';
-import CustomButton from './CustomButton';
+import React, { ChangeEvent } from "react";
+import CustomButton from "./CustomButton";
+import { enumImgSize } from "../@types/enums";
 
 interface AIPickerProps {
   prompt: string;
@@ -8,7 +9,12 @@ interface AIPickerProps {
   generatingImg?: boolean;
 }
 
-const AIPicker: FC<AIPickerProps> = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
+const AIPicker: React.FC<AIPickerProps> = ({
+  prompt,
+  setPrompt,
+  generatingImg,
+  handleSubmit,
+}) => {
   const handlePromptChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPrompt(e.target.value);
   };
@@ -24,20 +30,24 @@ const AIPicker: FC<AIPickerProps> = ({ prompt, setPrompt, generatingImg, handleS
       />
       <div className="flex flex-wrap gap-3">
         {generatingImg ? (
-          <CustomButton type="outline" title="Asking AI..." customStyles="text-xs" />
+          <CustomButton
+            type="outline"
+            title="Asking AI..."
+            customStyles="text-xs"
+          />
         ) : (
           <>
             <CustomButton
               type="outline"
               title="AI Logo"
-              handleClick={() => handleSubmit('logo')}
+              handleClick={() => handleSubmit(enumImgSize.Logo)}
               customStyles="text-xs"
             />
 
             <CustomButton
               type="filled"
               title="AI Full"
-              handleClick={() => handleSubmit('full')}
+              handleClick={() => handleSubmit(enumImgSize.Full)}
               customStyles="text-xs"
             />
           </>

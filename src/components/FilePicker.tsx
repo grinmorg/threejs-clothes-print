@@ -1,11 +1,12 @@
 import React, { ChangeEvent, FC } from "react";
 
 import CustomButton from "./CustomButton";
+import { enumImgSize } from "../@types/enums";
 
 interface FilePickerProps {
   file: File | null;
   setFile: (file: File | null) => void;
-  readFile: (type: string) => void;
+  readFile: (type: enumImgSize) => void;
 }
 
 const FilePicker: FC<FilePickerProps> = ({ file, setFile, readFile }) => {
@@ -34,16 +35,21 @@ const FilePicker: FC<FilePickerProps> = ({ file, setFile, readFile }) => {
       </div>
 
       <div className="mt-4 flex flex-wrap gap-3">
+        {file !== null ? (
+          <p className="mt-2 text-gray-500 bg-gray-50 p-2 text-xs rounded-md border-2">
+            File loaded, select options below
+          </p>
+        ) : null}
         <CustomButton
           type="outline"
           title="Logo"
-          handleClick={() => readFile("logo")}
+          handleClick={() => readFile(enumImgSize.Logo)}
           customStyles="text-xs"
         />
         <CustomButton
           type="filled"
           title="Full"
-          handleClick={() => readFile("full")}
+          handleClick={() => readFile(enumImgSize.Full)}
           customStyles="text-xs"
         />
       </div>

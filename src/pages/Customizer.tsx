@@ -4,8 +4,7 @@ import { useSnapshot } from "valtio";
 
 // import config from "../config/config";
 import state from "../store";
-import { download } from "../assets";
-import { downloadCanvasToImage, reader } from "../config/helpers";
+import { reader } from "../config/helpers";
 import { DecalTypes, EditorTabs, FilterTabs } from "../config/constants";
 import { fadeAnimation, slideAnimation } from "../config/motion";
 import {
@@ -15,6 +14,8 @@ import {
   FilePicker,
   Tab,
 } from "../components";
+import { enumImgSize } from "../@types/enums";
+import { toast } from "react-toastify";
 
 const Customizer = () => {
   const snap = useSnapshot(state);
@@ -38,7 +39,7 @@ const Customizer = () => {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
-        return <FilePicker file={file} setFile={setFile} readFile={() => {}} />;
+        return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
       case "aipicker":
         return (
           <AIPicker
@@ -80,8 +81,9 @@ const Customizer = () => {
     }
   };
 
+  // Update image on shirt
   const handleDecals = (
-    type: "logo" | "full",
+    type: enumImgSize,
     result: string | ArrayBuffer | null
   ) => {
     const decalType = DecalTypes[type];
@@ -93,6 +95,7 @@ const Customizer = () => {
     }
   };
 
+  // Переключение табов с режимами наложения изображения (лого, вся футболка)
   const handleActiveFilterTab = (tabName: string) => {
     switch (tabName) {
       case "logoShirt":
@@ -108,7 +111,6 @@ const Customizer = () => {
     }
 
     // after setting the state, activeFilterTab is updated
-
     setActiveFilterTab((prevState) => {
       return {
         ...prevState,
@@ -117,7 +119,7 @@ const Customizer = () => {
     });
   };
 
-  const readFile = (type: "logo" | "full") => {
+  const readFile = (type: enumImgSize) => {
     if (file) {
       const result = reader(file);
       if (result) {
@@ -130,8 +132,19 @@ const Customizer = () => {
       }
     } else {
       console.log("File is undefined");
+      toast.warn("Upload an image first!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
+
   return (
     <AnimatePresence>
       {!snap.intro && (
